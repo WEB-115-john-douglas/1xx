@@ -22,3 +22,6 @@ nightwolfonline version 102.0
 	- completed menuBuilder function in app.js
     - completed nav through menuBuilder function with recursion
 	
+nightwolfonline version 102.1
+	- completed css for navigation
+	
