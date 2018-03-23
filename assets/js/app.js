@@ -25,7 +25,11 @@ function init() {
         success: function (data) {
 
             var menu = menuBuilder(data.menu);
+			
             $('nav').append(menu);
+			
+			$("#loaderDiv").fadeOut("slow");   
+			
         },
         error: function () {
             console.log('call was bad');
