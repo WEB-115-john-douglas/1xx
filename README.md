@@ -25,3 +25,7 @@ nightwolfonline version 102.0
 nightwolfonline version 102.1
 	- completed css for navigation
 	
+nightwolfonline versiob 103.0
+	- fixed enlarging navigation on header shrink
+	- added loader to application with gears
+	
