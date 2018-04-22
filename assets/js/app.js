@@ -1,4 +1,3 @@
-// inside out project STEP-105
 window.onload = init();
 
 function init() {
@@ -35,6 +34,25 @@ function init() {
 			console.log('all is not good');
 		}
 	});
+
+	$.ajax({
+		method: 'GET',
+		url: 'https://me.nightwolfonline.com/wp-json/wp-api-menus/v2/menus/3',
+		dataType: 'json',
+		success: function (data) {
+			var menu = menuBuilder(data.items, 'genLinks', 'footer-ul');
+			$('#genLinks').replaceWith(menu);
+			//$('#genLinks li a').click(function () {
+				getPage($(this).data("pgid"));
+			$('footer li a').click(function () {
+				getPage($(this).data("pgid"));});
+		},
+		error: function () {
+			console.log('all is not good');
+		}
+	});
+
+	getPosts();
 }
 
 
@@ -68,16 +86,40 @@ function getPage(obj) {
 			$("#content").fadeOut(function () {
 				$('html').animate({
 					scrollTop: 0
-				}, 'slow'); //IE, FF
+				}, 'slow'); 
 				$('body').animate({
 					scrollTop: 0
-				}, 'slow'); //chrome, don't know if Safari works
+				}, 'slow'); 
 				$(this).html(pgbuild).fadeIn();
 				$("#loaderDiv").fadeOut("slow");
 			});
 		},
 		error: function () {
 			console.log('bad');
+		}
+	});
+}
+
+
+function getPosts() {
+
+	$.ajax({
+		method: 'GET',
+		url: 'https://me.nightwolfonline.com/wp-json/wp/v2/posts?orderby=date&order=asc&per_page=3',
+		dataType: 'json',
+		success: function (data) {
+			$("#latestPosts").html('<p id ="postLdr"><i class ="fa fa-cogs"></i>Loading Posts</p>');
+			data.forEach(function (item) {
+
+				var myDate = new Date(item.date);
+
+				$("#latestPosts").prepend('<p>' + item.title.rendered + '<span>' + myDate.getMonth() + '-' + myDate.getDay() + '-' + myDate.getFullYear() + '</span></p>');
+
+			});
+			$("#postLdr").remove();
+		},
+		error: function () {
+			console.log('all is not good');
 		}
 	});
 }
