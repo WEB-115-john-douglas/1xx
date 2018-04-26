@@ -1,3 +1,4 @@
+// inside out project STEP-106
 window.onload = init();
 
 function init() {
@@ -41,25 +42,28 @@ function init() {
 		dataType: 'json',
 		success: function (data) {
 			var menu = menuBuilder(data.items, 'genLinks', 'footer-ul');
-			$('#genLinks').replaceWith(menu);
-			//$('#genLinks li a').click(function () {
+ 			$('#genLinks').replaceWith(menu); 
+			$('#genLinks li a').click(function () {
 				getPage($(this).data("pgid"));
-			$('footer li a').click(function () {
-				getPage($(this).data("pgid"));});
+			});
+		
 		},
 		error: function () {
 			console.log('all is not good');
 		}
 	});
 
-	getPosts();
 }
 
 
-function menuBuilder(obj) {
+function menuBuilder(obj, targetEl, classsInfo) {
 	var theMenu = '';
 	if (obj.length > 0) {
-		theMenu = theMenu + '<ul>';
+		
+		let target = (targetEl)?' id="'+targetEl+'"':'';
+		let elClass = (classsInfo)?' class="'+classsInfo+'"':'';
+		
+		theMenu = theMenu + '<ul'+target+''+elClass+'>'; 
 		obj.forEach(function (item) {
 			theMenu = theMenu + '<li><a href="#" data-pgid="' + item.object_id + '">' + item.title + '</a>';
 			if (item.children) {
@@ -86,40 +90,16 @@ function getPage(obj) {
 			$("#content").fadeOut(function () {
 				$('html').animate({
 					scrollTop: 0
-				}, 'slow'); 
+				}, 'slow'); //IE, FF
 				$('body').animate({
 					scrollTop: 0
-				}, 'slow'); 
+				}, 'slow'); //chrome, don't know if Safari works
 				$(this).html(pgbuild).fadeIn();
 				$("#loaderDiv").fadeOut("slow");
 			});
 		},
 		error: function () {
 			console.log('bad');
-		}
-	});
-}
-
-
-function getPosts() {
-
-	$.ajax({
-		method: 'GET',
-		url: 'https://me.nightwolfonline.com/wp-json/wp/v2/posts?orderby=date&order=asc&per_page=3',
-		dataType: 'json',
-		success: function (data) {
-			$("#latestPosts").html('<p id ="postLdr"><i class ="fa fa-cogs"></i>Loading Posts</p>');
-			data.forEach(function (item) {
-
-				var myDate = new Date(item.date);
-
-				$("#latestPosts").prepend('<p>' + item.title.rendered + '<span>' + myDate.getMonth() + '-' + myDate.getDay() + '-' + myDate.getFullYear() + '</span></p>');
-
-			});
-			$("#postLdr").remove();
-		},
-		error: function () {
-			console.log('all is not good');
 		}
 	});
 }
