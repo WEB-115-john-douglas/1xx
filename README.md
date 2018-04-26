@@ -60,6 +60,44 @@ nightwolfonline version 105.0
  - app.js
       - code changes https://www.diffchecker.com/qS2xXeDk
       - removed comments and cleaned code
+
+ nightwolfonline version 106.0
+
+ me WP Site Changes
+ - add the pages for the links in the general links section in the footer
+    - contact us, privacy policy, terms & conditions, frequently asked questions 
+ 
+ inside out App Site Changes
+ - index.html
+      - code changes https://www.diffchecker.com/Td5ZPWg6
+      - add id="genLinks" to the ul in the "General Links" section in the footer
+ - app.js
+      - code changes https://www.diffchecker.com/KBtMvQ7d
+      - add ajax call to gret the general links menu
+      - add variables to the menubuilder function to accepet id and class information            
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
       - added the getPage function to capture link clicks and get page content
       - added getPage function call to the ajax call for the menus on page load to get the homepage
       - modified the forEach loop in the menuBuilder to include the page id as a data attribute
